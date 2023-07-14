@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <script type="text/javascript" src="scripts.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <form name="mycalc">
+      <div style="display:block;">
+        <input name="mydisp" class="txtdisp" type="text" size="10" value="0" readonly><br>
+      </div>
+      <div class="calculator">
+        <input type="button" class="button" value="7" onclick="digitKey(7)">
+        <input type="button" class="button" value="8" onclick="digitKey(8)">
+        <input type="button" class="button" value="9" onclick="digitKey(9)">
+        <input type="button" class="button operator" value="X" onclick="oprKey('*')">
+        <input type="button" class="button" value="4" onclick="digitKey(4)">
+        <input type="button" class="button" value="5" onclick="digitKey(5)">
+        <input type="button" class="button" value="6" onclick="digitKey(6)">
+        <input type="button" class="button operator" value="/" onclick="oprKey('/')">
+        <input type="button" class="button" value="1" onclick="digitKey(1)">
+        <input type="button" class="button" value="2" onclick="digitKey(2)">
+        <input type="button" class="button" value="3" onclick="digitKey(3)">
+        <input type="button" class="button operator" value="-" onclick="oprKey('-')">
+        <input type="button" class="button" value="0" onclick="digitKey(0)">
+        <input type="button" class="button clear-all" value="C" onclick="clearAll()">
+        <input type="button" class="button operator equals" value="=" onclick="calculate()">
+        <input type="button" class="button operator" value="+" onclick="oprKey('+')">
+        
+      </div>
+    </form>
+  </div>
+
+<script>
+  function display(a) {
+    document.forms['mycalc']['mydisp'].value = a;
+  }
+  var opr = ' ';
+  var num = 0;
+  var ans = 0;
+  var isDecimal = false;
+
+  function apply(a, op, n) {
+    switch (op) {
+      case "+": return a + n; 
+      case "-": return a - n;
+      case "*": return a * n;
+      case "/": return a / n;
+    } 
+  }
+  
+  function digitKey(key) {
+    if (num === 0 && !isDecimal) {
+      num = key; 
+    } else {
+      num = num * 10 + key;
+    }
+    display(num);
+  } 
+  
+  function oprKey(key) {
+    if (opr === ' ') ans = num;
+    else ans = apply(ans, opr, num);
+    display(ans);
+    opr = key;
+    num = 0;
+    isDecimal = false;
+  }
+  
+  function calculate() {
+    ans = apply(ans, opr, num);
+    display(ans);
+    opr = ' ';
+    num = 0;
+    isDecimal = false;
+  }
+  
+  function clearEntry() {
+    num = 0;
+    isDecimal = false;
+    display(ans);
+  }
+  
+  function clearAll() {
+    ans = 0;
+    opr = ' ';
+    num = 0;
+    isDecimal = false;
+    display(ans);
+  }
+</script>
+
+</body>
+</html>
